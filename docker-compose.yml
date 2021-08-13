@@ -1,0 +1,54 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: 'developer'
+      POSTGRES_PASSWORD: 'supersecretpassword'
+    volumes:
+      - openmusicdb:/var/lib/postgresql/data
+    networks:
+      - openmusicbackend
+
+  adminer:
+    container_name: adminer
+    image: adminer:latest
+    restart: always
+    ports:
+      - '8090:8080'
+    depends_on:
+      - postgres
+    networks:
+      - openmusicbackend
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - openmusicbackend
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - openmusicbackend
+
+volumes:
+  openmusicdb:
+    name: openmusicdb
+
+networks:
+  openmusicbackend:
+    name: openmusicbackend-network

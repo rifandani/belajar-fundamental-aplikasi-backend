@@ -1,0 +1,31 @@
+{
+  "name": "open-music",
+  "version": "1.0.0",
+  "description": "Dicoding Belajar Fundamental Aplikasi Backend Submission",
+  "main": "index.js",
+  "scripts": {
+    "start-prod": "NODE_ENV=production node ./src/server.js",
+    "start-dev": "nodemon ./src/server.js",
+    "lint": "eslint ./src",
+    "migrate": "node-pg-migrate",
+    "release": "standard-version"
+  },
+  "keywords": [],
+  "author": "Tri Rizeki Rifandani",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^20.1.5",
+    "dotenv": "^10.0.0",
+    "joi": "^17.4.2",
+    "nanoid": "^3.1.25",
+    "node-pg-migrate": "^5.10.0",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.0",
+    "nodemon": "^2.0.12",
+    "standard-version": "^9.3.1"
+  }
+}
