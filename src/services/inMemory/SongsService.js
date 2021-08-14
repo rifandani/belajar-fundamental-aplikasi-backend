@@ -1,5 +1,3 @@
-/* eslint-disable object-curly-newline */
-/* eslint-disable no-underscore-dangle */
 const { nanoid } = require('nanoid');
 
 const InvariantError = require('../../exceptions/InvariantError');

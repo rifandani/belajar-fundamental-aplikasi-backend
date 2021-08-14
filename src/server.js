@@ -5,6 +5,7 @@ require('dotenv').config();
 const songs = require('./api/songs');
 const SongsService = require('./services/postgres/SongsService');
 const SongsValidator = require('./validator/songs');
+const ClientError = require('./exceptions/ClientError');
 
 const init = async () => {
   const server = Hapi.server({
@@ -25,6 +26,33 @@ const init = async () => {
       service: songsService,
       validator: SongsValidator,
     },
+  });
+
+  server.ext('onPreResponse', (request, h) => {
+    // mendapatkan konteks response dari request
+    const { response } = request;
+
+    if (response instanceof ClientError) {
+      const clientErrorResponse = h.response({
+        status: 'fail',
+        message: response.message,
+      });
+      clientErrorResponse.code(response.statusCode);
+      return clientErrorResponse;
+    }
+
+    if (response.isServer) {
+      // Server ERROR!
+      const serverErrorResponse = h.response({
+        status: 'error',
+        message: 'Maaf, terjadi kegagalan pada server kami.',
+      });
+      serverErrorResponse.code(serverErrorResponse.statusCode);
+      return serverErrorResponse;
+    }
+
+    // jika bukan ClientError, lanjutkan dengan response sebelumnya (tanpa terintervensi)
+    return response.continue || response;
   });
 
   await server.start();

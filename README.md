@@ -1,4 +1,18 @@
-# Cara Penggunaan
+# 📃 Deskripsi
+
+Projek ini adalah submission dari Dicoding untuk kelas Belajar Fundamental Aplikasi Backend. Kelas ini memiliki total 3 submission yang harus diselesaikan untuk mendapatkan sertifikat.
+
+> **_PERINGATAN: Jadikan repo ini sebagai rujukan/referensi._**
+>
+> - Sesuai dengan terms of use di Dicoding, submission kelas Dicoding Academy haruslah hasil karya Anda sendiri.
+>
+> - Kode yang didapatkan dari sumber lain (website, buku, forum, GitHub, dan lain-lain) hanya digunakan sebagai referensi. Tingkat kesamaannya tidak boleh lebih dari 70%.
+
+## Submission 1️⃣: OpenMusic API V1
+
+Anda dapat melihat dan mendownload source code dari submission 1 di _releases_
+
+## 🏀 Cara Penggunaan
 
 1. Install [Docker](https://docs.docker.com/get-docker/)
 2. Pastikan Docker sudah terinstall
@@ -30,7 +44,7 @@
    docker-compose up -d postgres
    ```
 
-## Postgres
+## 🐘 Postgres
 
 ```env
 USER : developer
@@ -63,7 +77,7 @@ docker exec -it postgres sh
 
 - Link Command PSQL [Link](https://www.postgresqltutorial.com/psql-commands/)
 
-## Adminer
+## ⛏ Adminer
 
 Untuk Management Database Postgres
 
@@ -73,7 +87,7 @@ Untuk Management Database Postgres
 localhost:8090
 ```
 
-## RabbitMQ
+## 🐇 RabbitMQ
 
 Untuk Management Queue RabbitMQ
 
