@@ -75,6 +75,12 @@ docker exec -it postgres sh
 /# GRANT ALL PRIVILEGES ON DATABASE notesapp TO developer;
 ```
 
+- Menghapus tables
+
+```console
+/# TRUNCATE authentications, collaborations, playlists, playlistsongs, songs, users
+```
+
 - Link Command PSQL [Link](https://www.postgresqltutorial.com/psql-commands/)
 
 ## ⛏ Adminer
