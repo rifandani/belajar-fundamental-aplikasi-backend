@@ -26,7 +26,6 @@ const CollaborationsService = require('./services/postgres/CollaborationsService
 const CollaborationsValidator = require('./validator/collaborations');
 
 const init = async () => {
-  // const collaborationsService = new CollaborationsService();
   const songsService = new SongsService();
   const usersService = new UsersService();
   const authenticationsService = new AuthenticationsService();

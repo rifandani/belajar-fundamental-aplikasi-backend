@@ -1,7 +1,6 @@
 const { nanoid } = require('nanoid');
 const { Pool } = require('pg');
 const InvariantError = require('../../exceptions/InvariantError');
-const NotFoundError = require('../../exceptions/NotFoundError');
 
 class CollaborationsService {
   constructor() {
@@ -34,7 +33,7 @@ class CollaborationsService {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new NotFoundError('Collaborator gagal dihapus. Id tidak ditemukan');
+      throw new InvariantError('Collaborator gagal dihapus');
     }
   }
 }

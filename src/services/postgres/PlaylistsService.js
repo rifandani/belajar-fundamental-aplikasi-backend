@@ -90,13 +90,14 @@ class PlaylistsService {
              FROM playlists
              INNER JOIN users ON playlists.owner = users.id
              LEFT JOIN collaborations ON collaborations.playlist_id = playlists.id
-             WHERE (playlists.owner = $1 OR collaborations.user_id = $1) AND playlists.id = $2`,
+             WHERE (playlists.owner = $1 OR collaborations.user_id = $1) AND
+             playlists.id = $2`,
       values: [userId, playlistId],
     };
 
     const result = await this._pool.query(query);
 
-    if (!result.rowCount) {
+    if (!result.rows[0]) {
       throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
     }
   }

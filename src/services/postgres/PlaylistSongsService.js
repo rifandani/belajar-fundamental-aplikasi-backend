@@ -1,16 +1,11 @@
-const autoBind = require('auto-bind');
 const { nanoid } = require('nanoid');
 const { Pool } = require('pg');
 const InvariantError = require('../../exceptions/InvariantError');
-const NotFoundError = require('../../exceptions/NotFoundError');
-// const { mapPlaylistSongsDBToModel } = require('../../utils');
 
 class PlaylistSongsService {
   constructor(playlistsService) {
     this._pool = new Pool();
     this._playlistsService = playlistsService;
-
-    autoBind(this);
   }
 
   async addSongToPlaylist({ playlistId, userId, songId }) {
@@ -33,7 +28,7 @@ class PlaylistSongsService {
     }
   }
 
-  async getSongsFromPlaylist({ playlistId, userId }) {
+  async getSongsFromPlaylist(playlistId, userId) {
     // only owner or collaborator access
     await this._playlistsService.verifyPlaylistAccess(playlistId, userId);
 
@@ -48,8 +43,8 @@ class PlaylistSongsService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rowCount) {
-      throw new NotFoundError('Lagu dari playlist tidak ditemukan');
+    if (!result.rows) {
+      throw new InvariantError('Lagu dari playlist tidak ditemukan');
     }
 
     return result.rows;

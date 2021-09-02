@@ -8,9 +8,9 @@ Projek ini adalah submission dari Dicoding untuk kelas Belajar Fundamental Aplik
 >
 > - Kode yang didapatkan dari sumber lain (website, buku, forum, GitHub, dan lain-lain) hanya digunakan sebagai referensi. Tingkat kesamaannya tidak boleh lebih dari 70%.
 
-## Submission 1️⃣: OpenMusic API V1
+## Submission 1️⃣, 2️⃣: OpenMusic API V1, V2
 
-Anda dapat melihat dan mendownload source code dari submission 1 di _releases_
+Anda dapat melihat dan mendownload source code dari submission 1, 2 di _releases_
 
 ## 🏀 Cara Penggunaan
 

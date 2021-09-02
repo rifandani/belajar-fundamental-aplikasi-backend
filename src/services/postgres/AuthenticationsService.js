@@ -30,7 +30,7 @@ class AuthenticationsService {
   }
 
   async deleteRefreshToken(token) {
-    // first: verify token payload
+    // verify token payload
     await this.verifyRefreshToken(token);
 
     const query = {

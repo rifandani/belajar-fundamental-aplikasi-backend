@@ -1,3 +1,5 @@
+/* eslint-disable operator-linebreak */
+
 const autoBind = require('auto-bind');
 
 class PlaylistsHandler {
@@ -95,15 +97,13 @@ class PlaylistsHandler {
     const { id: userId } = request.auth.credentials;
 
     // call playlistsong service
-    const songs = await this._playlistSongsService.getSongsFromPlaylist(
-      playlistId,
-      userId,
-    );
+    const songsFromPlaylist =
+      await this._playlistSongsService.getSongsFromPlaylist(playlistId, userId);
 
     return {
       status: 'success',
       data: {
-        songs,
+        songs: songsFromPlaylist,
       },
     };
   }
