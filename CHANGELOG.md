@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/rifandani/belajar-fundamental-aplikasi-backend/compare/v2.0.0...v3.0.0) (2021-09-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **exports, upload, cache:** adding exports, upload, and server side caching
+
+### Features
+
+* **exports, upload, cache:** adding exports, upload picture, server caching ([da5a572](https://github.com/rifandani/belajar-fundamental-aplikasi-backend/commit/da5a572166093b9272c9db878047268a7b03446e))
+
 ## [2.0.0](https://github.com/rifandani/belajar-fundamental-aplikasi-backend/compare/v1.1.0...v2.0.0) (2021-09-02)
 
 ## [1.1.0](https://github.com/rifandani/belajar-fundamental-aplikasi-backend/compare/v1.0.2...v1.1.0) (2021-09-02)
