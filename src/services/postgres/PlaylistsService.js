@@ -5,8 +5,9 @@ const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 
 class PlaylistsService {
-  constructor() {
+  constructor(cacheService) {
     this._pool = new Pool();
+    this._cacheService = cacheService;
   }
 
   async addPlaylist({ name, owner }) {
@@ -23,22 +24,37 @@ class PlaylistsService {
       throw new InvariantError('Playlist gagal ditambahkan');
     }
 
+    // agar cache yang disimpan dihapus ketika terjadi perubahan data
+    await this._cacheService.delete(`playlists:${owner}`);
+
     return result.rows[0].id;
   }
 
   async getPlaylistsByUserId(userId) {
-    const query = {
-      text: `SELECT playlists.id, playlists.name, users.username
+    try {
+      // get playlists:userId cache first
+      const result = await this._cacheService.get(`playlists:${userId}`);
+      return JSON.parse(result);
+    } catch (err) {
+      const query = {
+        text: `SELECT playlists.id, playlists.name, users.username
              FROM playlists
              INNER JOIN users ON playlists.owner = users.id
              LEFT JOIN collaborations ON collaborations.playlist_id = playlists.id
              WHERE playlists.owner = $1 OR collaborations.user_id = $1`,
-      values: [userId],
-    };
+        values: [userId],
+      };
 
-    const result = await this._pool.query(query);
+      const result = await this._pool.query(query);
 
-    return result.rows;
+      // save song to cache
+      await this._cacheService.set(
+        `playlists:${userId}`,
+        JSON.stringify(result.rows),
+      );
+
+      return result.rows;
+    }
   }
 
   async deletePlaylistByPlaylistId({ playlistId, userId }) {
@@ -55,6 +71,9 @@ class PlaylistsService {
     if (!result.rowCount) {
       throw new NotFoundError('Playlist gagal dihapus. Id tidak ditemukan');
     }
+
+    // agar cache yang disimpan dihapus ketika terjadi perubahan data
+    await this._cacheService.delete(`playlists:${userId}`);
   }
 
   async verifyPlaylistOwner(playlistId, userId) {
@@ -97,7 +116,7 @@ class PlaylistsService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rows[0]) {
+    if (!result.rowCount) {
       throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
     }
   }

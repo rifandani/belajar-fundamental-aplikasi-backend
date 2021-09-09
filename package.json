@@ -24,14 +24,18 @@
   },
   "dependencies": {
     "@hapi/hapi": "^20.1.5",
+    "@hapi/inert": "^6.0.4",
     "@hapi/jwt": "^2.1.0",
+    "amqplib": "^0.8.0",
     "auto-bind": "^4.0.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "joi": "^17.4.2",
     "nanoid": "^3.1.25",
     "node-pg-migrate": "^5.10.0",
-    "pg": "^8.7.1"
+    "nodemailer": "^6.6.3",
+    "pg": "^8.7.1",
+    "redis": "^3.1.2"
   },
   "devDependencies": {
     "commitizen": "^4.2.4",

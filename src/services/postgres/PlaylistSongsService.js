@@ -1,11 +1,13 @@
 const { nanoid } = require('nanoid');
 const { Pool } = require('pg');
 const InvariantError = require('../../exceptions/InvariantError');
+const AuthorizationError = require('../../exceptions/AuthorizationError');
 
 class PlaylistSongsService {
-  constructor(playlistsService) {
+  constructor(playlistsService, cacheService) {
     this._pool = new Pool();
     this._playlistsService = playlistsService;
+    this._cacheService = cacheService;
   }
 
   async addSongToPlaylist({ playlistId, userId, songId }) {
@@ -26,28 +28,51 @@ class PlaylistSongsService {
     if (!result.rowCount) {
       throw new InvariantError('Lagu gagal ditambahkan ke dalam playlist');
     }
+
+    // agar cache yang disimpan dihapus ketika terjadi perubahan data
+    await this._cacheService.delete(`playlistsongs:${playlistId}`);
   }
 
   async getSongsFromPlaylist(playlistId, userId) {
-    // only owner or collaborator access
-    await this._playlistsService.verifyPlaylistAccess(playlistId, userId);
+    try {
+      // only owner or collaborator access
+      await this._playlistsService.verifyPlaylistAccess(playlistId, userId);
 
-    const query = {
-      text: `SELECT songs.id, songs.title, songs.performer
-            FROM playlists
-            INNER JOIN playlistsongs ON playlistsongs.playlist_id = playlists.id
-            INNER JOIN songs ON songs.id = playlistsongs.song_id
-            WHERE playlists.id = $1`,
-      values: [playlistId],
-    };
+      // get playlistsongs:playlistId cache first
+      const result = await this._cacheService.get(
+        `playlistsongs:${playlistId}`,
+      );
+      return JSON.parse(result);
+    } catch (err) {
+      if (err instanceof AuthorizationError) {
+        throw new AuthorizationError(
+          'Anda tidak berhak mengakses resource ini',
+        );
+      }
 
-    const result = await this._pool.query(query);
+      const query = {
+        text: `SELECT songs.id, songs.title, songs.performer
+              FROM playlists
+              INNER JOIN playlistsongs ON playlistsongs.playlist_id = playlists.id
+              INNER JOIN songs ON songs.id = playlistsongs.song_id
+              WHERE playlists.id = $1`,
+        values: [playlistId],
+      };
 
-    if (!result.rows) {
-      throw new InvariantError('Lagu dari playlist tidak ditemukan');
+      const result = await this._pool.query(query);
+
+      if (!result.rowCount) {
+        throw new InvariantError('Lagu dari playlist tidak ditemukan');
+      }
+
+      // save playlistsongs:playlistId to cache
+      await this._cacheService.set(
+        `playlistsongs:${playlistId}`,
+        JSON.stringify(result.rows),
+      );
+
+      return result.rows;
     }
-
-    return result.rows;
   }
 
   async deleteSongFromPlaylist(playlistId, songId, userId) {
@@ -69,6 +94,9 @@ class PlaylistSongsService {
         'Lagu gagal dihapus dari playlist. Id tidak ditemukan',
       );
     }
+
+    // agar cache yang disimpan dihapus ketika terjadi perubahan data
+    await this._cacheService.delete(`playlistsongs:${playlistId}`);
   }
 }
 

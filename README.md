@@ -10,7 +10,7 @@ Projek ini adalah submission dari Dicoding untuk kelas Belajar Fundamental Aplik
 
 ## Submission 1️⃣, 2️⃣: OpenMusic API V1, V2
 
-Anda dapat melihat dan mendownload source code dari submission 1, 2 di _releases_
+Anda dapat melihat dan mendownload source code dari submission 1, 2 di bagian [Releases](https://github.com/rifandani/belajar-fundamental-aplikasi-backend/releases)
 
 ## 🏀 Cara Penggunaan
 
