@@ -23,7 +23,7 @@ class CollaborationsService {
     }
 
     // agar cache yang disimpan dihapus ketika terjadi perubahan data
-    // await this._cacheService.delete(`playlists:${userId}`);
+    await this._cacheService.delete(`playlists:${userId}`);
 
     return result.rows[0].id;
   }

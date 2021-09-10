@@ -1,6 +1,6 @@
 # 📃 Deskripsi
 
-Projek ini adalah submission dari Dicoding untuk kelas Belajar Fundamental Aplikasi Backend. Kelas ini memiliki total 3 submission yang harus diselesaikan untuk mendapatkan sertifikat.
+Projek ini adalah submission dari Dicoding untuk kelas Belajar Fundamental Aplikasi Backend. Kelas ini memiliki total 3 submission yang harus diselesaikan untuk dapat menyelesaikan kelas dan memperoleh sertifikat.
 
 > **_PERINGATAN: Jadikan repo ini sebagai rujukan/referensi._**
 >
@@ -8,9 +8,13 @@ Projek ini adalah submission dari Dicoding untuk kelas Belajar Fundamental Aplik
 >
 > - Kode yang didapatkan dari sumber lain (website, buku, forum, GitHub, dan lain-lain) hanya digunakan sebagai referensi. Tingkat kesamaannya tidak boleh lebih dari 70%.
 
-## Submission 1️⃣, 2️⃣: OpenMusic API V1, V2
+## Submission 1️⃣, 2️⃣, 3️⃣: OpenMusic API V1, V2, V3
 
-Anda dapat melihat dan mendownload source code dari submission 1, 2 di bagian [Releases](https://github.com/rifandani/belajar-fundamental-aplikasi-backend/releases)
+Anda dapat melihat dan mendownload source code dari submission 1, 2, dan 3 di bagian [Releases](https://github.com/rifandani/belajar-fundamental-aplikasi-backend/releases)
+
+> Submission 1 ⭐⭐⭐⭐
+> Submission 2 ⭐⭐⭐⭐⭐
+> Submission 3 ⭐⭐⭐⭐
 
 ## 🏀 Cara Penggunaan
 
@@ -102,3 +106,16 @@ Untuk Management Queue RabbitMQ
 ```console
 localhost:5672
 ```
+
+## RedisInsight
+
+Untuk Management Redis menggunakan RedisInsight
+
+- Akses melalui browser
+
+```console
+localhost:8001
+```
+
+- Masukkan Host: `localhost` atau local ip address device kalian.
+- Cara mengetahui local ip address dengan command `ipconfig`
